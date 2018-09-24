@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Dog Sounds</string>
+    <string name="funny_dog">Funny Dog</string>
+    <string name="play_icon">Play Icon</string>
+
+
+    <!-- String Names for Sounds -->
+
+    <string name="lab_bark">Labrador Barking</string>
+
+
+
+</resources>
