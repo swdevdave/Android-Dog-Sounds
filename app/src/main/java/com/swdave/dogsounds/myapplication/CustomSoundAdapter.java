@@ -18,7 +18,6 @@ public class CustomSoundAdapter extends BaseAdapter {
     private int mLayout;
     private ArrayList<Sound> mSoundList;
     private MediaPlayer mMediaPlayer;
-    private Boolean mMediaFlag;
 
 
     CustomSoundAdapter(Context mContext, int mLayout, ArrayList<Sound> mSoundList) {
@@ -65,26 +64,45 @@ public class CustomSoundAdapter extends BaseAdapter {
         }
         final Sound sound = mSoundList.get(position);
         viewHolder.sound_text_view.setText(sound.getSoundName());
-        viewHolder.playIcon.setImageResource(R.drawable.playbutton);
-        mMediaFlag = true;
+
 
         //play music
 
         viewHolder.playIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mMediaPlayer != null){
+                if (mMediaPlayer == null){
+                    mMediaPlayer = MediaPlayer.create(mContext, sound.getSoundId());
+                    mMediaPlayer.start();
+                    viewHolder.playIcon.setImageResource(R.drawable.stop_icon);
+
+                    mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            mMediaPlayer.stop();
+                            mMediaPlayer.release();
+                            mMediaPlayer = null;
+                            viewHolder.playIcon.setImageResource(R.drawable.playbutton);
+                        }
+                    });
+
+                } else {
                     mMediaPlayer.stop();
                     mMediaPlayer.release();
                     mMediaPlayer = null;
+                    viewHolder.playIcon.setImageResource(R.drawable.playbutton);
 
-                } else {
-                    mMediaPlayer = MediaPlayer.create(mContext, sound.getSoundId());
-                    mMediaPlayer.start();
                 }
+
             }
         });
-
         return convertView;
     }
+
+
+
 }
+
+
+//        mMediaPlayer.stop();
+//        mMediaPlayer.release();
+//        mMediaPlayer = null;
