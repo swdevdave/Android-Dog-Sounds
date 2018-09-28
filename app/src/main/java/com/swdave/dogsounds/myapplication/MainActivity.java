@@ -1,17 +1,37 @@
 package com.swdave.dogsounds.myapplication;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static InterstitialAd mInterstitialAd;
+
+    public static void ShowAd() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    AdRequest interstitialAd = new AdRequest.Builder()
+                            .addTestDevice("0D4AD147DF98D55498A65E66B79C334B")
+                            .build();
+
+                    mInterstitialAd.loadAd(interstitialAd);
+                }
+            });
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
         AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
 
         adView.loadAd(adRequest);
+        MobileAds.initialize(this, "ca-app-pub-8618914966141272~2520421322");
 
-        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
-        //TODO: UPDATE TO PROPER APP ID
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-8618914966141272/8785875955");
+        AdRequest interstitialAd = new AdRequest.Builder()
+                .build();
+
+        mInterstitialAd.loadAd(interstitialAd);
 
         ListView mSoundListView = findViewById(R.id.sounds_list);
         ArrayList<Sound> mSoundArray = new ArrayList<>();
@@ -84,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         mSoundArray.add(new Sound("Tiny Puppy Whine 3", R.raw.tiny_puppy_whine3));
         mSoundArray.add(new Sound("Wolves Howling Outside", R.raw.wolves_howling_outside));
         mSoundArray.add(new Sound("Yellow Lab Puppy", R.raw.yellow_lab_puppy)); // # 52
-
 
         CustomSoundAdapter mAdapter = new CustomSoundAdapter(this, R.layout.list_sounds, mSoundArray);
         mSoundListView.setAdapter(mAdapter);

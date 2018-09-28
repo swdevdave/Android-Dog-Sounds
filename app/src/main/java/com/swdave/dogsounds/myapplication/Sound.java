@@ -3,7 +3,7 @@ package com.swdave.dogsounds.myapplication;
 class Sound {
 
 
-    private String soundName;
+    private final String soundName;
     private int soundId;
 
 

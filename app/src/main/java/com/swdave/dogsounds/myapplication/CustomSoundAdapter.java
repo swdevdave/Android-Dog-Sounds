@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CustomSoundAdapter extends BaseAdapter {
+class CustomSoundAdapter extends BaseAdapter {
 
-
-    private Context mContext;
+    private final Context mContext;
     private int mLayout;
     private ArrayList<Sound> mSoundList;
     private MediaPlayer mMediaPlayer;
+    private int mAdCounter = 0;
 
 
     CustomSoundAdapter(Context mContext, int mLayout, ArrayList<Sound> mSoundList) {
@@ -41,11 +41,6 @@ public class CustomSoundAdapter extends BaseAdapter {
         return 0;
     }
 
-    private class ViewHolder{
-        TextView sound_text_view;
-        ImageView playIcon;
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
@@ -66,22 +61,21 @@ public class CustomSoundAdapter extends BaseAdapter {
         viewHolder.sound_text_view.setText(sound.getSoundName());
 
 
-        //play music
-
         viewHolder.playIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mMediaPlayer == null){
+                if (mMediaPlayer == null) {
                     mMediaPlayer = MediaPlayer.create(mContext, sound.getSoundId());
                     mMediaPlayer.start();
-                    viewHolder.playIcon.setImageResource(R.drawable.stop_icon);
-
                     mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         public void onCompletion(MediaPlayer mp) {
                             mMediaPlayer.stop();
                             mMediaPlayer.release();
                             mMediaPlayer = null;
-                            viewHolder.playIcon.setImageResource(R.drawable.playbutton);
+                            mAdCounter++;
+                            if (mAdCounter % 10 == 0) {
+                                MainActivity.ShowAd();
+                            }
                         }
                     });
 
@@ -89,20 +83,14 @@ public class CustomSoundAdapter extends BaseAdapter {
                     mMediaPlayer.stop();
                     mMediaPlayer.release();
                     mMediaPlayer = null;
-                    viewHolder.playIcon.setImageResource(R.drawable.playbutton);
-
                 }
-
             }
         });
         return convertView;
     }
 
-
-
+    private class ViewHolder {
+        TextView sound_text_view;
+        ImageView playIcon;
+    }
 }
-
-
-//        mMediaPlayer.stop();
-//        mMediaPlayer.release();
-//        mMediaPlayer = null;
