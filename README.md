@@ -6,8 +6,8 @@ So I decided to write one.
 ## Features  
 
 - 52 Different sounds for your dog to enjoy
-- Limited Ads (Many of the apps on the market place spam you with ads)
-- Phone & Table Versions
+- Limited ads (Many of the apps on the market place spam you with ads)
+- Phone & tablet versions
 
 
 ## ScreenShot  
