@@ -23,9 +23,7 @@ public class MainActivity extends AppCompatActivity {
             mInterstitialAd.setAdListener(new AdListener() {
                 @Override
                 public void onAdClosed() {
-                    AdRequest interstitialAd = new AdRequest.Builder()
-                            .addTestDevice("0D4AD147DF98D55498A65E66B79C334B")
-                            .build();
+                    AdRequest interstitialAd = new AdRequest.Builder().build();
 
                     mInterstitialAd.loadAd(interstitialAd);
                 }
@@ -38,13 +36,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AdView adView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
-
-        adView.loadAd(adRequest);
         MobileAds.initialize(this, "ca-app-pub-8618914966141272~2520421322");
 
+        // Banner Ad
+        AdView adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        adView.loadAd(adRequest);
+
+
+        // Interstitial Ad
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-8618914966141272/8785875955");
         AdRequest interstitialAd = new AdRequest.Builder()
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         mInterstitialAd.loadAd(interstitialAd);
 
+
+        // Create Array
         ListView mSoundListView = findViewById(R.id.sounds_list);
         ArrayList<Sound> mSoundArray = new ArrayList<>();
 
