@@ -1,6 +1,6 @@
 package com.swdave.dogsounds.myapplication;
 
-public class Sound {
+class Sound {
 
 
     private String soundName;
@@ -13,19 +13,12 @@ public class Sound {
 
     }
 
-    public String getSoundName() {
+    String getSoundName() {
         return soundName;
     }
 
-    public void setSoundName(String soundName) {
-        this.soundName = soundName;
-    }
-
-    public int getSoundId() {
+    int getSoundId() {
         return soundId;
     }
 
-    public void setSoundId(int soundId) {
-        this.soundId = soundId;
-    }
 }

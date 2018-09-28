@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ public class CustomSoundAdapter extends BaseAdapter {
     private int mLayout;
     private ArrayList<Sound> mSoundList;
     private MediaPlayer mMediaPlayer;
+    private Boolean mMediaFlag;
 
 
     CustomSoundAdapter(Context mContext, int mLayout, ArrayList<Sound> mSoundList) {
@@ -50,15 +50,14 @@ public class CustomSoundAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
-        if (convertView == null){
+        if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             assert layoutInflater != null;
-            convertView = layoutInflater.inflate(mLayout,null);
+            convertView = layoutInflater.inflate(mLayout, null);
             viewHolder.sound_text_view = convertView.findViewById(R.id.sound_text_view);
             viewHolder.playIcon = convertView.findViewById(R.id.play_icon);
-
             convertView.setTag(viewHolder);
 
         } else {
@@ -66,29 +65,26 @@ public class CustomSoundAdapter extends BaseAdapter {
         }
         final Sound sound = mSoundList.get(position);
         viewHolder.sound_text_view.setText(sound.getSoundName());
-
+        viewHolder.playIcon.setImageResource(R.drawable.playbutton);
+        mMediaFlag = true;
 
         //play music
+
         viewHolder.playIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopPlaying();
-                mMediaPlayer = MediaPlayer.create(mContext, sound.getSoundId());
-                mMediaPlayer.start();
+                if (mMediaPlayer != null){
+                    mMediaPlayer.stop();
+                    mMediaPlayer.release();
+                    mMediaPlayer = null;
 
+                } else {
+                    mMediaPlayer = MediaPlayer.create(mContext, sound.getSoundId());
+                    mMediaPlayer.start();
+                }
             }
         });
 
         return convertView;
     }
-
-    private void stopPlaying(){
-        if (mMediaPlayer != null){
-            mMediaPlayer.stop();
-            mMediaPlayer.release();
-            mMediaPlayer = null;
-        }
-    }
-
-
 }
