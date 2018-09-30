@@ -6,7 +6,9 @@ So I decided to write one.
 ## Features  
 
 - 52 Different sounds for your dog to enjoy
-- Limited ads (Many of the apps on the market place spam you with ads)
+- Family friendly sounds, no agressive dog sounds
+- Limited ads (Many of the apps on the market place spam you with ads) 
+- Small banner ad at bottom & Intersatial add added after every 10 sound plays
 - Phone & tablet versions
 
 ## Published on to Google Play Store  
