@@ -12,6 +12,8 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 
+import hotchemi.android.rate.AppRate;
+
 public class MainActivity extends AppCompatActivity {
 
     private static InterstitialAd mInterstitialAd;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         MobileAds.initialize(this, "ca-app-pub-8618914966141272~2520421322");
 
         // Banner Ad
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         mInterstitialAd.loadAd(interstitialAd);
 
+        RateNow();
 
         // Create Array
         ListView mSoundListView = findViewById(R.id.sounds_list);
@@ -113,6 +118,17 @@ public class MainActivity extends AppCompatActivity {
 
         CustomSoundAdapter mAdapter = new CustomSoundAdapter(this, R.layout.list_sounds, mSoundArray);
         mSoundListView.setAdapter(mAdapter);
+
+    }
+
+    private void RateNow(){
+        AppRate.with(this)
+                .setInstallDays(1)
+                .setLaunchTimes(2)
+                .setRemindInterval(1)
+                .monitor();
+
+        AppRate.showRateDialogIfMeetsConditions(this);
 
     }
 }

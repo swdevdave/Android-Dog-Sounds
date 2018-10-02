@@ -1,5 +1,10 @@
 <resources>
-    <string name="app_name">Dog Sounds</string>
+    <string name="app_name">Free Dog Sounds</string>
     <string name="funny_dog">Funny Dog</string>
     <string name="play_icon">Play Icon</string>
+
+    <!-- Rate Dialog -->
+    <string name="rate_dialog_title">Free Dog Sounds</string>
+
+
 </resources>
