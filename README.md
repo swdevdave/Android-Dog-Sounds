@@ -17,6 +17,10 @@ http://hotchemi.github.io/Android-Rate
   
 https://play.google.com/store/apps/details?id=com.swdave.dogsounds.myapplication
 
+## Version 1.01 Changelog
+- Added more screen widths
+- Implemented Rate Me Library
+
 ## ScreenShot  
 
 <img src="https://github.com/swdevdave/Android-Dog-Sounds/blob/master/DogSoundsScreenShot.png" height="300"/>&nbsp;&nbsp;&nbsp;
